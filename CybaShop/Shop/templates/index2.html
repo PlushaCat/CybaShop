@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+  <title></title>
+</head>
+<body class="bg-gradient-to-r from-green-600 to-green-400">
+  <div class="flex flex-row container mx-auto colorMain">
+    <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
+    <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
+    <div class="mx-auto my-auto"><a href="{% url 'index' %}" class="my-auto text-xl md:text-6xl relative md:text-3xl md:bottom-2 font-mono md:pr-54">CybaShop</a></div>
+    {% if request.user.is_authenticated %}
+    <div class="mx-auto my-auto"><a href="{% url 'profile' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>
+    <div class="mx-auto my-auto"><a href="{% url 'profile' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'IconeLogin.png' %}"></a></div>
+    {% else %}
+    <div class="mx-auto my-auto"><a href="{% url 'login' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>
+    <div class="mx-auto my-auto"><a href="{% url 'login' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'Icone-usuario-Png 1.png' %}"></a></div>
+    {% endif %}
+  </div>
+  <div class="blackColor my-4 rounded-lg container mx-auto h-16 w-6/12 flex flex-row">
+    <p class="text-white">Поиск продуктов...</p>
+    <img src="{% static 'vector-search-icon 1.png' %}" width="30" height="30">
+  </div>
+  <h1 class="relative ml-4 my-4 w-4 h-4 text-xl md:text-3xl">Каталог</h1>
+<div class="flex">  
+  <div class="flex flex-col container ml-4 w-4/12 h-[44rem] justify-between content-center">
+    {% for cat in category %}
+    <a href="{% url 'category_page' cat.id %}"><div class="mb-1 w-full colorMain rounded-lg h-14 drop-shadow-lg shadow-lg"> <p class="text-sm line-clamp-2 md:text-xl text-center font-mono mt-4 antialiased lg:text-3xl">{{ cat.name }}</p></div></a>
+    {% endfor %}
+  </div>
+
+  <div class="w-7/12 h-[44rem] relative ml-8 grid grid-cols-2 gap-4">
+    {% for goods in firstrow %}
+      <div class="div1 cellColor rounded-lg drop-shadow-lg mb-2 flex flex-col content-center">
+        <a href="{% url 'OrderForm' goods.id %}" class="h-full w-full block"><img class="max-w-[6rem]" src="{{ goods.image.url }}">
+      <h1 class="object-contain">
+        {{ goods.price }} р.
+      </h1>
+      <p class="object-contain line-clamp-2 text-sm lg:text-xl">
+        {{ goods.name }}
+      </p>
+        </a>
+    </div>
+    {% endfor %}
+
+    {% for goods in tworow %}
+    <div class="div2 cellColor rounded-lg drop-shadow-lg mb-2">
+        <a href="{% url 'OrderForm' goods.id %}" class="h-full w-full block"><img class="max-w-[6rem]" src="{{ goods.image.url }}">
+      <h1 class="object-contain">
+        {{ goods.price }} р.
+      </h1>
+      <p class="object-contain">
+        {{ goods.name }}
+      </p>
+        </a>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

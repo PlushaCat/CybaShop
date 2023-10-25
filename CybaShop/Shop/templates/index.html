@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+</head>
+    
+<body>
+  <div class="flex flex-row container mx-auto colorMain">
+    <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
+    <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
+    <div class="mx-auto my-auto"><a href="{% url 'index' %}" class="my-auto text-xl md:text-6xl relative md:text-3xl md:bottom-2 font-mono md:pr-54">CybaShop</a></div>
+    {% if request.user.is_authenticated %}
+    <div class="mx-auto my-auto"><a href="{% url 'profile' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>
+    <div class="mx-auto my-auto"><a href="{% url 'profile' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'IconeLogin.png' %}"></a></div>
+    {% else %}
+    <div class="mx-auto my-auto"><a href="{% url 'login' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>
+    <div class="mx-auto my-auto"><a href="{% url 'login' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'Icone-usuario-Png 1.png' %}"></a></div>
+    {% endif %}
+  </div>
+    <div class="blackColor my-4 rounded-lg container mx-auto h-16 w-6/12 flex flex-row">
+      <input type="text" id="search-room" class="form-control" placeholder="Поиск продуктов..." name="q"
+      hx-get="{% url 'search' %}"
+      hx-trigger="keyup changed delay:150ms"
+      hx-target="#search-results"
+      >
+    <img src="{% static 'vector-search-icon 1.png' %}" width="30" height="30">
+  </div>
+
+  <div id="search-results">{% include 'task_list.html' %} </div>
+  <h1 class="relative ml-4 my-4 w-4 h-4 text-xl w-full md:text-3xl md:text-6xl">Каталог</h1>
+
+  <div class="flex flex-col w-8/12 h-2/4 justify-center relative md:top-32 h-16 w-full ml-4 top-0 ml-16">
+    <div class="flex w-full pr-12 justify-between">
+      <div class="cellColor rounded-md drop-shadow-md mb-2">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+      </div>
+      <div class="cellColor rounded-md ml-2 drop-shadow-md mb-2 ">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+
+      </div>
+            <div class="cellColor rounded-md drop-shadow-md mb-2 hidden md:block">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+
+      </div>
+      <div class="cellColor rounded-md ml-2 drop-shadow-md mb-2 md:block">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+
+      </div>
+    </div>
+      <div class="flex w-full pr-12 md:justify-between">    
+    <div class="cellColor rounded-md drop-shadow-md mt-2 md:block">
+      <img src="{% static 'pomidors.png' %}">
+     <h1>
+      Price
+    </h1>
+
+    </div>
+      <div class="cellColor rounded-md ml-2 drop-shadow-md mt-2 md:block">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+
+      </div>
+       <div class="cellColor rounded-md drop-shadow-md ml-2 hidden  md:block">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+      </div>
+      <div class="cellColor rounded-md ml-2 drop-shadow-md mt-2 md:block">
+        <img src="{% static 'pomidors.png' %}">
+      <h1>
+        Price
+      </h1>
+      </div>
+  </div>
+  </div>
+
+</div>
+
+<h1 class="relative ml-4 my-4 md:mt-48 w-4 h-4 text-xl md:text-3xl md:text-6xl">Акции</h1>
+
+<img src="{% static 'akcia.png' %}" class="w-full h-2/4">
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+</head>
+    
+<body class="h-screen">
+  <div class="flex flex-row container mx-auto colorMain">
+    <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
+    <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
+    <div class="mx-auto my-auto"><a href="{% url 'index' %}" class="my-auto text-xl md:text-6xl relative md:text-3xl md:bottom-2 font-mono md:pr-54">CybaShop</a></div>
+    {% if request.user.is_authenticated %}
+    <div class="mx-auto my-auto"><a href="{% url 'profile' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>
+    <div class="mx-auto my-auto"><a href="{% url 'profile' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'IconeLogin.png' %}"></a></div>
+    {% else %}
+    <div class="mx-auto my-auto"><a href="{% url 'login' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>
+    <div class="mx-auto my-auto"><a href="{% url 'login' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'Icone-usuario-Png 1.png' %}"></a></div>
+    {% endif %}
+  </div>
+
+
+<form method="post" class="form-example mx-auto top-80 relative bg-gray-200 w-1/4 h-1/4 rounded-lg">
+    {% csrf_token %}
+  <div class="form-example mt-4 relative text-xl text-red-500">{{ form.non_field_errors }}</div>
+  {% for field in form %}
+  <div class="form-example mt-4 relative">
+    <label class="text-2xl" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+  </div>
+    <div class="form-example mt-4 relative text-xl text-red-500">{{ field.errors }}</div>
+  {% endfor %}
+    <button type="submit" class="bg-green-500 left-3/4 relative w-full lg:left-2/4">Войти</button>
+</form>
+
+<div class="bg-green-500 w-48 relative mx-auto rounded-lg">
+  <a href="{% url 'register' %}" class="ml-4">Зарегистрироваться</a>
+</div>

@@ -1,0 +1,18 @@
+{% if results %}
+
+<div class="grid grid-cols-2 gap-4 bg-green-500">
+    {% for goods in results %}
+        <div class="cellColor rounded-md drop-shadow-md mb-2">
+        <img src="{{ goods.image.url }}">
+      <h1>
+        {{ goods.price }}
+      </h1>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% else %}
+Ничего не нашло
+
+{% endif %}
