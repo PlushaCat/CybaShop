@@ -6,7 +6,8 @@
 Админка,
 Система авторизации и регистрации,
 Система заказа продукта по нажатию на него,
-Функционирующий поиск в реальном времени.
+Функционирующий поиск в реальном времени,
+Сайт полностью адаптивный под все устройства.
 ![Screenshot_5](https://github.com/PlushaCat/CybaShop/assets/104760630/a6032c57-9596-46a6-9ad4-c12ed361cdf9)
 ![Screenshot_6](https://github.com/PlushaCat/CybaShop/assets/104760630/6ba9252d-5d0d-454d-9e1d-4a02d1ed8319)
 ![Screenshot_7](https://github.com/PlushaCat/CybaShop/assets/104760630/cababa19-65a9-4135-abeb-e7f5e7ac934d)
