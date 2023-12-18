@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
 </head>
     
-<body class="h-screen">
+<body class="h-screen bg-gradient-to-r from-green-600 to-green-400">
   <div class="flex flex-row container mx-auto colorMain">
     <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
     <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
@@ -26,6 +26,7 @@
 
 <form method="post" class="form-example mx-auto top-80 relative bg-gray-200 w-1/4 h-1/4 rounded-lg">
     {% csrf_token %}
+    <div class="form-example mt-4 relative text-xl text-red-500">{{ form.non_field_errors }}</div>
   {% for field in form %}
   <div class="form-example mt-4 relative">
     <label class="text-2xl" for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -35,14 +36,19 @@
   {% endfor %}
     <button type="submit" class="bg-green-500 left-3/4 relative w-full lg:left-2/4">Заказать</button>
 </form>
-
+  <div>
+      Итоговая цена: {{ Basket.total_sum }}
+      Количество товаров: {{ Basket.total_quantity }}
+  </div>
+    {% for basket in Basket %}
       <div class="cellColor rounded-lg drop-shadow-lg mb-2 left-1/4 relative w-24">
-        <img src="{{ good.image.url }}" width="50" height="50">
+        <img src="{{ basket.good.image.url }}" width="50" height="50">
       <h1 class="object-contain">
-        {{ good.price }} р.
+        {{ basket.good.price }} р.
       </h1>
       <p class="object-contain">
-        {{ good.name }}
+        {{ basket.good.name }}
       </p>
         </a>
     </div>
+    {% endfor %}

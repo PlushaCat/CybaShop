@@ -5,19 +5,18 @@ from django.contrib.auth.models import User
 from .models import *
 
 class OrderForm(forms.ModelForm):
+
     class Meta:
         model = Order
-        fields = ('quantity', 'phone', 'email', 'address')
+        fields = ('phone', 'email', 'address')
 
         labels = {
-            'quantity': 'Количество',
             'phone': 'Номер телефона',
             'email': 'Email',
             'address': 'Адрес доставки',
         }
 
         widgets = {
-            'quantity': forms.TextInput(attrs={'class': 'colorMain mr-0.5'}),
             'phone': forms.TextInput(attrs={'class': 'colorMain mr-0.5'}),
             'email': forms.EmailInput(attrs={'class': 'colorMain mr-0.5'}),
             'address': forms.TextInput(attrs={'class': 'colorMain mr-0.5'}),

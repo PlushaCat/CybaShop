@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-    {% load static %}
-<head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="stylesheet" href="{% static 'style.css' %}">
-    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
-</head>
-    
-<body class="h-screen bg-gradient-to-r from-green-600 to-green-400">
+ {% load static %}
   <div class="flex flex-row container mx-auto colorMain">
     <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
     <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
@@ -22,17 +11,12 @@
     <div class="mx-auto my-auto"><a href="{% url 'login' %}" ><img class="mx-auto my-auto w-16 h-16" src="{% static 'Icone-usuario-Png 1.png' %}"></a></div>
     {% endif %}
   </div>
+    <div class="blackColor my-4 rounded-lg mx-auto h-16 w-6/12">
+      <input type="text" id="search-room" class="form-control blackColor w-full h-full text-white rounded-lg" placeholder="Поиск продуктов..." name="q"
+      hx-get="{% url 'search' %}"
+      hx-trigger="keyup changed delay:150ms"
+      hx-target="#search-results"
+      >
+    </div>
 
-
-<form method="post" class="form-example mx-auto top-80 relative bg-gray-200 w-1/4 h-1/4 rounded-lg">
-    {% csrf_token %}
-  {% for field in form %}
-  <div class="form-example mt-4 relative">
-    <label class="text-2xl" for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {{ field }}
-  </div>
-    <div class="form-example mt-4 relative text-xl text-red-500">{{ field.errors }}</div>
-  {% endfor %}
-    <button type="submit" class="bg-green-500 left-3/4 relative w-full lg:left-2/4">Зарегистрироваться</button>
-</form>
-
+  <div id="search-results" class="mx-auto w-6/12 relative bottom-4 bg-green-500 rounded-lg">{% include 'task_list.html' %} </div>

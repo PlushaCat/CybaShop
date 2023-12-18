@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bg-gradient-to-r from-green-600 to-green-400">
   <div class="flex flex-row container mx-auto colorMain">
     <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
     <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
@@ -22,9 +22,39 @@
     {% endif %}
   </div>
 
+  {% if Basket %}
+  <div id="search-results" class="mx-auto w-6/12 relative mt-4 bg-green-500 rounded-lg">
+      <h1 class="text-center text-xl ">Корзина</h1>
+    <div class="grid grid-cols-1 w-full">
+    {% for basket in Basket %}
+    <div class="w-full h-24 border-2 border-white-500">
+        <div class="h-full w-full block flex flex-row">
+        <div class="rounded-md drop-shadow-md mb-2 w-3/6 h-16 lg:w-1/6">
+        <img class="max-w-[5rem] max-h-[5rem] mx-auto mt-2 md: max-w-[5rem] max-h-[5rem]" src="{{ basket.good.image.url }}">
+        </div>
+
+        <div class="h-full w-1/2 grow">
+            <h1 class="object-contain my-auto mx-auto h-1/2">
+                {{ basket.good.price }} р.             <div>
+            <a href="{% url 'basket_remove' basket.id %}">Удалить из корзины</a>
+            </div>
+            </h1>
+            <p class="object-contain line-clamp-2 text-sm my-auto mx-auto h-1/2 lg:text-xl">
+                {{ basket.good.name }}, {{ basket.quantity }}
+            </p>
+        </div>
+        </div>
+    </div>
+        {% endfor %}
+        <a href="{% url 'OrderForm' %}">Заказать</a>
+  </div>
 
 
+</div>
+  {% else %}
+  <h1> Корзина пуста</h1>
 
+  {% endif %}
 <a href="{% url 'logout' %}"> <h1>ВЫЙТИ</h1></a>
 
 

@@ -1,18 +1,28 @@
 {% if results %}
 
-<div class="grid grid-cols-2 gap-4 bg-green-500">
+<div class="grid grid-cols-1 w-full">
     {% for goods in results %}
-        <div class="cellColor rounded-md drop-shadow-md mb-2">
-        <img src="{{ goods.image.url }}">
-      <h1>
-        {{ goods.price }}
-      </h1>
+    <div class="w-full h-24 border-2 border-white-500">
+        <a href="{% url 'basket_add' goods.id %}" class="h-full w-full block flex flex-row">
+        <div class="rounded-md drop-shadow-md mb-2 w-3/6 h-16 lg:w-1/6">
+        <img class="max-w-[5rem] max-h-[5rem] mx-auto mt-2 md: max-w-[5rem] max-h-[5rem]" src="{{ goods.image.url }}">
         </div>
+
+        <div class="h-full w-1/2 grow">
+            <h1 class="object-contain my-auto mx-auto h-1/2">
+                {{ goods.price }} р.
+            </h1>
+            <p class="object-contain line-clamp-2 text-sm my-auto mx-auto h-1/2 lg:text-xl">
+                {{ goods.name }}
+            </p>
+        </div>
+        </a>
+    </div>
     {% endfor %}
 </div>
 
 
 {% else %}
-Ничего не нашло
+
 
 {% endif %}

@@ -1,6 +1,7 @@
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
 
 class Goods(models.Model):
     name = models.CharField(max_length=255)
@@ -13,12 +14,12 @@ class Goods(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+
 class Order(models.Model):
-    quantity = models.IntegerField()
     phone = models.CharField()
     email = models.EmailField()
     address = models.CharField()
-    good = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    basket = models.ManyToManyField('Basket')
 
     def __str__(self):
         return f"заказ {self.pk}"
@@ -30,3 +31,22 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class BasketQuerySet(models.QuerySet):
+    def total_sum(self):
+        return sum(basket.sum() for basket in self)
+
+    def total_quantity(self):
+        return sum(basket.quantity for basket in self)
+class Basket(models.Model):
+    good = models.ForeignKey(Goods, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    quantity = models.PositiveSmallIntegerField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    objects = BasketQuerySet.as_manager()
+    def __str__(self):
+        return f"корзина пользователя {self.user.username}, товары: {self.good.name}, кол-во: {self.quantity}"
+
+    def sum(self):
+        return self.good.price * self.quantity
