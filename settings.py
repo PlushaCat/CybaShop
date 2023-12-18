@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'Shop.apps.ShopConfig',
     'django.contrib.admin',
-    'tailwind',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
