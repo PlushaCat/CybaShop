@@ -19,14 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nt5uv-7%of4i(2lq(a8#)x=9q!k7ci1honvs8^41grdj(1r%br'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = False
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["cybashop-production.up.railway.app", "<you custom domain name>"]
 
 # Application definition
 
@@ -34,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Shop.apps.ShopConfig',
     'django.contrib.admin',
+    'tailwind',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,13 +41,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'CybaShop.urls'
@@ -78,13 +76,20 @@ WSGI_APPLICATION = 'CybaShop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CybaShop',
-        'USER': 'testplu',
-        'PASSWORD': 'plusha',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("PGDATABASE"),
+        'USER': os.environ.get("PGUSER"),
+        'PASSWORD': os.environ.get("PGPASSWORD"),
+        'HOST': os.environ.get("PGHOST"),
+        'PORT': os.environ.get("PGPORT"),
     }
 }
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 # Password validation
@@ -120,16 +125,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    BASE_DIR / "CybaShop/static",
-]
-
-STATIC_URL = 'static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 

@@ -1,1 +1,1 @@
-web: gunicorn CybaShop.wsgi
+web: python manage.py migrate && gunicorn mysite.wsgi
