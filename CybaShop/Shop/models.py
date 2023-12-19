@@ -16,9 +16,9 @@ class Goods(models.Model):
 
 
 class Order(models.Model):
-    phone = models.CharField()
+    phone = models.CharField(max_length=255)
     email = models.EmailField()
-    address = models.CharField()
+    address = models.CharField(max_length=255)
     basket = models.ManyToManyField('Basket')
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Order(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, db_index=True)
 
     def __str__(self):
@@ -38,6 +38,7 @@ class BasketQuerySet(models.QuerySet):
 
     def total_quantity(self):
         return sum(basket.quantity for basket in self)
+
 class Basket(models.Model):
     good = models.ForeignKey(Goods, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)

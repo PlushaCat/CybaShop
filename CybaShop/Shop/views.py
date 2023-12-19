@@ -16,6 +16,15 @@ def index(request):
     category = Category.objects.all()
     return render(request, "index.html", {'category': category})
 
+def reports(request):
+    total_good_quantity = len(Goods.objects.all())
+    total_good_price = sum((i.price for i in Goods.objects.all()))
+    total_user_quantity = len(User.objects.all())
+    total_orders_quantity = len(Order.objects.all())
+
+    order = Order.objects.all()
+    return render(request, "index7.html", {'goods_quantity': total_good_quantity, 'total_good_price': total_good_price, 'total_user_quantity':
+                                           total_user_quantity, 'total_orders_quantity': total_orders_quantity})
 
 def catalogue(request):
     good = Goods.objects.all()

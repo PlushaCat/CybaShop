@@ -1,7 +1,7 @@
  {% load static %}
   <div class="flex flex-row container mx-auto colorMain">
     <div class="mx-auto my-auto"><a href="{% url 'catalog' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Каталог</a></div>
-    <div class="mx-auto my-auto"><p class="mx-auto my-auto text-5 md:text-2xl font-mono">Акции</p></div>
+    <div class="mx-auto my-auto"><a href="{% url 'reports' %}" class="mx-auto my-auto text-5 md:text-2xl font-mono">Отчеты</a></div>
     <div class="mx-auto my-auto"><a href="{% url 'index' %}" class="my-auto text-xl md:text-6xl relative md:text-3xl md:bottom-2 font-mono md:pr-54">CybaShop</a></div>
     {% if request.user.is_authenticated %}
     <div class="mx-auto my-auto"><a href="{% url 'profile' %}" class="my-auto text-5 md:text-2xl relative font-mono">Профиль</a></div>

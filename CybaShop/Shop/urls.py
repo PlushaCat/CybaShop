@@ -12,6 +12,7 @@ urlpatterns = [
     path("Order/", views.ViewOrderForm, name="OrderForm"),
     path("Profile/", views.profile, name="profile"),
     path("logout/", views.logout_user, name="logout"),
+    path("reports/", views.reports, name="reports"),
     path("catalog/<int:cat_id>/", views.show_category, name="category_page"),
     path("Search_products/", views.search_task, name="search"),
     path("Basket/add/<int:good_id>/", views.basket_add, name="basket_add"),
